@@ -51,7 +51,7 @@
 #include "em_cmu.h"
 #include "ecode.h"
 #include "uartdrv_config.h"
-#include "dmadrv.h"
+//#include "dmadrv.h"
 #include "sl_enum.h"
 #include "sl_sleeptimer.h"
 
@@ -327,8 +327,10 @@ typedef struct UARTDRV_HandleData{
   uint8_t                       uartNum;           // UART instance number
   unsigned int                  txDmaCh;           // A DMA ch assigned to Tx
   unsigned int                  rxDmaCh;           // A DMA ch assigned to Rx
+#ifndef CCP_SI917_BRINGUP  
   DMADRV_PeripheralSignal_t     txDmaSignal;       // A DMA Tx trigger source signal
   DMADRV_PeripheralSignal_t     rxDmaSignal;       // A DMA Rx trigger source signal
+#endif /* CCP_SI917_BRINGUP */  
   UARTDRV_FlowControlState_t    fcSelfState;       // A current self flow control state
   UARTDRV_FlowControlState_t    fcSelfCfg;         // A self flow control override configuration
   UARTDRV_FlowControlState_t    fcPeerState;       // A current peer flow control state

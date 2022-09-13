@@ -51,7 +51,9 @@ extern "C" {
  * @defgroup EFR32MG12P432F1024GL125 EFR32MG12P432F1024GL125
  * @{
  ******************************************************************************/
-
+ 
+#ifndef CCP_SI917_BRINGUP
+//#if 1
 /** Interrupt Number Definition */
 typedef enum IRQn{
 /******  Cortex-M4 Processor Exceptions Numbers ********************************************/
@@ -118,6 +120,7 @@ typedef enum IRQn{
   CRYPTO1_IRQn          = 48, /*!< 16+48 EFR32 CRYPTO1 Interrupt */
   TRNG0_IRQn            = 49, /*!< 16+49 EFR32 TRNG0 Interrupt */
 } IRQn_Type;
+#endif /* CCP_SI917_BRINGUP */
 
 #define CRYPTO_IRQn               CRYPTO0_IRQn /*!< Alias for CRYPTO0_IRQn */
 
@@ -267,8 +270,8 @@ typedef enum IRQn{
 
 /* Part number capabilities */
 
-#define CRYPTO_PRESENT          /**< CRYPTO is available in this part */
-#define CRYPTO_COUNT          2 /**< 2 CRYPTOs available  */
+//#define CRYPTO_PRESENT          /**< CRYPTO is available in this part */
+//#define CRYPTO_COUNT          2 /**< 2 CRYPTOs available  */
 #define TIMER_PRESENT           /**< TIMER is available in this part */
 #define TIMER_COUNT           2 /**< 2 TIMERs available  */
 #define WTIMER_PRESENT          /**< WTIMER is available in this part */
@@ -395,9 +398,9 @@ typedef enum IRQn{
 #define EMU_BASE          (0x400E3000UL) /**< EMU base address  */
 #define RMU_BASE          (0x400E5000UL) /**< RMU base address  */
 #define CMU_BASE          (0x400E4000UL) /**< CMU base address  */
-#define CRYPTO0_BASE      (0x400F0000UL) /**< CRYPTO0 base address  */
-#define CRYPTO_BASE       CRYPTO0_BASE   /**< Alias for CRYPTO0 base address */
-#define CRYPTO1_BASE      (0x400F0400UL) /**< CRYPTO1 base address  */
+//#define CRYPTO0_BASE      (0x400F0000UL) /**< CRYPTO0 base address  */
+//#define CRYPTO_BASE       CRYPTO0_BASE   /**< Alias for CRYPTO0 base address */
+//#define CRYPTO1_BASE      (0x400F0400UL) /**< CRYPTO1 base address  */
 #define GPIO_BASE         (0x4000A000UL) /**< GPIO base address  */
 #define PRS_BASE          (0x400E6000UL) /**< PRS base address  */
 #define LDMA_BASE         (0x400E2000UL) /**< LDMA base address  */
@@ -431,7 +434,7 @@ typedef enum IRQn{
 #define WDOG1_BASE        (0x40052400UL) /**< WDOG1 base address  */
 #define ETM_BASE          (0xE0041000UL) /**< ETM base address  */
 #define SMU_BASE          (0x40022000UL) /**< SMU base address  */
-#define TRNG0_BASE        (0x4001D000UL) /**< TRNG0 base address  */
+//#define TRNG0_BASE        (0x4001D000UL) /**< TRNG0 base address  */
 #define DEVINFO_BASE      (0x0FE081B0UL) /**< DEVINFO base address */
 #define ROMTABLE_BASE     (0xE00FFFD0UL) /**< ROMTABLE base address */
 #define LOCKBITS_BASE     (0x0FE04000UL) /**< Lock-bits page base address */
@@ -448,9 +451,9 @@ typedef enum IRQn{
 #define EMU          ((EMU_TypeDef *) EMU_BASE)             /**< EMU base pointer */
 #define RMU          ((RMU_TypeDef *) RMU_BASE)             /**< RMU base pointer */
 #define CMU          ((CMU_TypeDef *) CMU_BASE)             /**< CMU base pointer */
-#define CRYPTO0      ((CRYPTO_TypeDef *) CRYPTO0_BASE)      /**< CRYPTO0 base pointer */
-#define CRYPTO       CRYPTO0                                /**< Alias for CRYPTO0 base pointer */
-#define CRYPTO1      ((CRYPTO_TypeDef *) CRYPTO1_BASE)      /**< CRYPTO1 base pointer */
+//#define CRYPTO0      ((CRYPTO_TypeDef *) CRYPTO0_BASE)      /**< CRYPTO0 base pointer */
+//#define CRYPTO       CRYPTO0                                /**< Alias for CRYPTO0 base pointer */
+//#define CRYPTO1      ((CRYPTO_TypeDef *) CRYPTO1_BASE)      /**< CRYPTO1 base pointer */
 #define GPIO         ((GPIO_TypeDef *) GPIO_BASE)           /**< GPIO base pointer */
 #define PRS          ((PRS_TypeDef *) PRS_BASE)             /**< PRS base pointer */
 #define LDMA         ((LDMA_TypeDef *) LDMA_BASE)           /**< LDMA base pointer */

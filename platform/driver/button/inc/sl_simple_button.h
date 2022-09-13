@@ -63,7 +63,9 @@ extern "C" {
 typedef struct {
   sl_button_state_t     state;          ///< Current button state
   uint16_t              history;        ///< History of button states
+#ifndef CCP_SI917_BRINGUP  
   GPIO_Port_TypeDef     port;           ///< Button port
+#endif /* CCP_SI917_BRINGUP */
   uint8_t               pin;            ///< Button pin
   sl_button_mode_t      mode;           ///< Mode of operation */
 } sl_simple_button_context_t;

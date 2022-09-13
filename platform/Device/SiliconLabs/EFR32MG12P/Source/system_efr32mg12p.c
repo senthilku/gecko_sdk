@@ -98,8 +98,9 @@ static uint32_t SystemLFXOClock = EFR32_LFXO_FREQ;
  * @details
  *   Required CMSIS global variable that must be kept up-to-date.
  */
+ #ifndef CCP_SI917_BRINGUP
 uint32_t SystemCoreClock = EFR32_HFRCO_STARTUP_FREQ;
-
+#endif /* CCP_SI917_BRINGUP */
 /**
  * @brief
  *   System HFRCO frequency
@@ -289,6 +290,7 @@ void SystemHFXOClockSet(uint32_t freq)
  *   and any data has been initialized. For this reason, it cannot do any
  *   initialization of variables etc.
  ******************************************************************************/
+ #ifndef CCP_SI917_BRINGUP
 void SystemInit(void)
 {
 #if defined (__VTOR_PRESENT) && (__VTOR_PRESENT == 1U)
@@ -305,7 +307,7 @@ void SystemInit(void)
   SCB->CCR |= SCB_CCR_UNALIGN_TRP_Msk;
 #endif
 }
-
+#endif /* CCP_SI917_BRINGUP */
 /***************************************************************************//**
  * @brief
  *   Get low frequency RC oscillator clock frequency for target system.

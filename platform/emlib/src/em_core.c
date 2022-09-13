@@ -630,6 +630,8 @@ void CORE_YieldNvicMask(const CORE_nvicMask_t *enable)
  * @param[in,out] mask
  *   The mask to set the interrupt bit in.
  ******************************************************************************/
+
+#ifndef CCP_SI917_BRINGUP
 void CORE_NvicMaskSetIRQ(IRQn_Type irqN, CORE_nvicMask_t *mask)
 {
   EFM_ASSERT(((int)irqN >= 0) && ((int)irqN < EXT_IRQ_COUNT));
@@ -651,7 +653,7 @@ void CORE_NvicMaskClearIRQ(IRQn_Type irqN, CORE_nvicMask_t *mask)
   EFM_ASSERT(((int)irqN >= 0) && ((int)irqN < EXT_IRQ_COUNT));
   mask->a[(unsigned)irqN >> 5] &= ~(1UL << ((unsigned)irqN & 0x1FUL));
 }
-
+#endif /* CCP_SI917_BRINGUP */
 /***************************************************************************//**
  * @brief
  *   Check whether the current CPU operation mode is handler mode.
@@ -675,6 +677,7 @@ SL_WEAK bool CORE_InIrqContext(void)
  * @return
  *   True if the interrupt is disabled or blocked.
  ******************************************************************************/
+#ifndef CCP_SI917_BRINGUP
 SL_WEAK bool CORE_IrqIsBlocked(IRQn_Type irqN)
 {
   uint32_t irqPri, activeIrq;
@@ -716,7 +719,7 @@ SL_WEAK bool CORE_IrqIsBlocked(IRQn_Type irqN)
 
   return false;
 }
-
+#endif /* CCP_SI917_BRINGUP */
 /***************************************************************************//**
  * @brief
  *   Check if interrupts are disabled.
@@ -792,6 +795,7 @@ bool CORE_GetNvicMaskDisableState(const CORE_nvicMask_t *mask)
  * @return
  *   True if the interrupt is disabled.
  ******************************************************************************/
+#ifndef CCP_SI917_BRINGUP
 bool CORE_NvicIRQDisabled(IRQn_Type irqN)
 {
   CORE_nvicMask_t *mask;
@@ -839,7 +843,7 @@ void CORE_SetNvicRamTableHandler(IRQn_Type irqN, void *handler)
   EFM_ASSERT(((int)irqN >= -16) && ((int)irqN < EXT_IRQ_COUNT));
   ((uint32_t*)SCB->VTOR)[(int)irqN + 16] = (uint32_t)((uint32_t*)handler);
 }
-
+#endif /* CCP_SI917_BRINGUP */
 /***************************************************************************//**
  * @brief
  *   Initialize an interrupt vector table by copying table entries from a

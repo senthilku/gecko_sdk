@@ -52,7 +52,9 @@ static void sli_simple_button_on_change(uint8_t interrupt_no, void *ctx)
 
   if (simple_button->state != SL_SIMPLE_BUTTON_DISABLED) {
     simple_button->state = ((bool)GPIO_PinInGet(simple_button->port, simple_button->pin) == SL_SIMPLE_BUTTON_POLARITY);
-    sl_button_on_change(button);
+#ifndef CCP_SI917_BRINGUP
+	sl_button_on_change(button);
+#endif /* CCP_SI917_BRINGUP */
   }
 }
 

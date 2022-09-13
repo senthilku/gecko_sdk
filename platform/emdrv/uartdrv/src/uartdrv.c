@@ -72,7 +72,7 @@
 #define UART_DMA_IRQ          DMA_IRQn
 #define UART_DMA_IRQHANDLER() DMA_IRQHandler()
 #elif defined(LDMA_PRESENT) && (LDMA_COUNT == 1)
-#define UART_DMA_IRQ          LDMA_IRQn
+#define UART_DMA_IRQ          9
 #define UART_DMA_IRQHANDLER() LDMA_IRQHandler()
 #else
 #error "No valid UARTDRV DMA engine defined."
@@ -2593,8 +2593,10 @@ Ecode_t  UARTDRV_ForceTransmit(UARTDRV_Handle_t handle,
     return retVal;
   }
 
+#ifndef CCP_SI917_BRINGUP
   // Wait for DMA transmit to complete and clear
   callDmaIrqHandler = CORE_IrqIsBlocked(UART_DMA_IRQ); // Loop invariant
+#endif /* CCP_SI917_BRINGUP */  
   while ((handle->txQueue->used > 0) && (!handle->txDmaPaused)) {
     if (callDmaIrqHandler) {
       UART_DMA_IRQHANDLER();

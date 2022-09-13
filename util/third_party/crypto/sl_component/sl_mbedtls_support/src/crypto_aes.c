@@ -49,6 +49,7 @@
 #if defined(CRYPTO_PRESENT)
 #if defined(MBEDTLS_AES_C)
 #if defined(MBEDTLS_AES_ALT)
+//#if 1 //senthil mbed tls
 
 #include "crypto_management.h"
 #include "em_crypto.h"

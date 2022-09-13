@@ -54,6 +54,10 @@
  */
 static psa_status_t sli_crypto_trng_soft_reset(void)
 {
+#ifdef CCP_SI917_BRINGUP
+  size_t loop_cycles;
+#endif /* CCP_SI917_BRINGUP */
+
   for (size_t i = 0; i < SLI_TRNG_MAX_RETRIES; i++) {
     uint32_t ctrl = TRNG0->CONTROL;
 
@@ -61,9 +65,10 @@ static psa_status_t sli_crypto_trng_soft_reset(void)
     TRNG0->CONTROL = ctrl;
     ctrl &= ~TRNG_CONTROL_SOFTRESET;
     TRNG0->CONTROL = ctrl;
-
+#ifndef CCP_SI917_BRINGUP
     // Wait for TRNG to complete startup tests and start filling the FIFO.
     size_t loop_cycles = CMU_ClockFreqGet(cmuClock_CORE) >> 10;
+#endif /* CCP_SI917_BRINGUP */
     for (size_t j = 0; (TRNG0->FIFOLEVEL == 0) && (j < loop_cycles); j++) {
       ;
     }
@@ -278,6 +283,9 @@ psa_status_t sli_crypto_trng_get_random(unsigned char *output,
   size_t count = 0;
   size_t available_entropy;
   psa_status_t ret = PSA_SUCCESS;
+#ifdef CCP_SI917_BRINGUP     
+  size_t loop_cycles;
+#endif /* CCP_SI917_BRINGUP */	    
 
   CMU->HFPERCLKEN0 |= CMU_HFPERCLKEN0_TRNG0;
   if ((TRNG0->CONTROL & TRNG_CONTROL_ENABLE) == 0u) {
@@ -291,7 +299,9 @@ psa_status_t sli_crypto_trng_get_random(unsigned char *output,
     available_entropy = TRNG0->FIFOLEVEL * 4;
     if (available_entropy == 0) {
       // Wait a bit for the FIFO to fill back up if it went empty
+#ifndef CCP_SI917_BRINGUP      
       size_t loop_cycles = CMU_ClockFreqGet(cmuClock_CORE) >> 11;
+#endif /* CCP_SI917_BRINGUP */	  
       for (size_t i = 0; i < loop_cycles; i++) {
         if (TRNG0->FIFOLEVEL > 0) {
           break;

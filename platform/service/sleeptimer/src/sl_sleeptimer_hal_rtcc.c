@@ -76,8 +76,8 @@ void sleeptimer_hal_init_timer(void)
 
   RTCC_Enable(true);
 
-  NVIC_ClearPendingIRQ(RTCC_IRQn);
-  NVIC_EnableIRQ(RTCC_IRQn);
+  NVIC_ClearPendingIRQ(30);
+  NVIC_EnableIRQ(30);
 }
 
 /******************************************************************************

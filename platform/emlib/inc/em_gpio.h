@@ -31,7 +31,7 @@
 #ifndef EM_GPIO_H
 #define EM_GPIO_H
 
-#include "em_device.h"
+//#include "em_device.h"
 #if defined(GPIO_COUNT) && (GPIO_COUNT > 0)
 
 #include <stdbool.h>

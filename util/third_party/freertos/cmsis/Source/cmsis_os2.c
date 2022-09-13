@@ -173,7 +173,7 @@ __STATIC_INLINE void SVC_Setup (void) {
   /* Service Call interrupt might be configured before kernel start     */
   /* and when its priority is lower or equal to BASEPRI, svc intruction */
   /* causes a Hard Fault.                                               */
-  NVIC_SetPriority (SVCall_IRQn, 0U);
+  NVIC_SetPriority (-5, 0U);
 #endif
 }
 

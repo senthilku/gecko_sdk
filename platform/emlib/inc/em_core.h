@@ -30,7 +30,9 @@
 #ifndef EM_CORE_H
 #define EM_CORE_H
 
+//#ifndef CCP_SI917_BRINGUP 
 #include "em_device.h"
+//#endif /* CCP_SI917_BRINGUP */  
 #include "sl_common.h"
 
 #include <stdbool.h>
@@ -315,7 +317,7 @@ void  CORE_YieldAtomic(void);
 CORE_irqState_t CORE_EnterAtomic(void);
 
 bool  CORE_InIrqContext(void);
-bool  CORE_IrqIsBlocked(IRQn_Type irqN);
+
 bool  CORE_IrqIsDisabled(void);
 
 void  CORE_GetNvicEnabledMask(CORE_nvicMask_t *mask);
@@ -326,12 +328,17 @@ void  CORE_EnterNvicMask(CORE_nvicMask_t *nvicState,
 void  CORE_NvicDisableMask(const CORE_nvicMask_t *disable);
 void  CORE_NvicEnableMask(const CORE_nvicMask_t *enable);
 void  CORE_YieldNvicMask(const CORE_nvicMask_t *enable);
+
+#ifndef CCP_SI917_BRINGUP
 void  CORE_NvicMaskSetIRQ(IRQn_Type irqN, CORE_nvicMask_t *mask);
 void  CORE_NvicMaskClearIRQ(IRQn_Type irqN, CORE_nvicMask_t *mask);
 bool  CORE_NvicIRQDisabled(IRQn_Type irqN);
 
 void *CORE_GetNvicRamTableHandler(IRQn_Type irqN);
 void  CORE_SetNvicRamTableHandler(IRQn_Type irqN, void *handler);
+bool  CORE_IrqIsBlocked(IRQn_Type irqN);
+#endif /* CCP_SI917_BRINGUP */
+
 void  CORE_InitNvicVectorTable(uint32_t *sourceTable,
                                uint32_t sourceSize,
                                uint32_t *targetTable,

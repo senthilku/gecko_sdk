@@ -41,6 +41,11 @@
 #ifndef EM_DEVICE_H
 #define EM_DEVICE_H
 
+//#ifdef CCP_SI917_BRINGUP
+//#include "RS1xxxx_9117.h"
+//#else
+
+
 #if defined(EFR32MG12P132F1024GL125)
 #include "efr32mg12p132f1024gl125.h"
 
@@ -113,5 +118,7 @@
 #else
 #error "em_device.h: PART NUMBER undefined"
 #endif
+
+//#endif
 
 #endif /* EM_DEVICE_H */

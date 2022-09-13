@@ -38,9 +38,10 @@
  ******************************************************************************/
 sl_status_t sl_device_init_nvic(void)
 {
+#ifndef CCP_SI917_BRINGUP
   for (IRQn_Type i = SVCall_IRQn; i < EXT_IRQ_COUNT; i++) {
     NVIC_SetPriority(i, CORE_INTERRUPT_DEFAULT_PRIORITY);
   }
-
+#endif /* CCP_SI917_BRINGUP */
   return SL_STATUS_OK;
 }

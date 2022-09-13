@@ -29,7 +29,11 @@
  ******************************************************************************/
 #include "sl_event_handler.h"
 
+#ifndef CCP_SI917_BRINGUP
+
 void sl_system_kernel_start(void)
 {
   sl_kernel_start();
 }
+#endif /* CCP_SI917_BRINGUP */
+

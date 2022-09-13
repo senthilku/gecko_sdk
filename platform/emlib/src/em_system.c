@@ -108,6 +108,8 @@ void SYSTEM_ChipRevisionGet(SYSTEM_ChipRevision_TypeDef *rev)
 #endif
 }
 
+
+#ifndef CCP_SI917_BRINGUP
 /***************************************************************************//**
  * @brief
  *    Get a factory calibration value for a given peripheral register.
@@ -206,4 +208,5 @@ SYSTEM_SecurityCapability_TypeDef SYSTEM_GetSecurityCapability(void)
   return sc;
 }
 
+#endif /*  CCP_SI917_BRINGUP */
 /** @} (end addtogroup system) */

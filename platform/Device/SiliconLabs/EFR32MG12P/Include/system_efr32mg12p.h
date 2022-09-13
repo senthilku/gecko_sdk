@@ -59,8 +59,9 @@ typedef union {
 /*******************************************************************************
  **************************   GLOBAL VARIABLES   *******************************
  ******************************************************************************/
-
+//#ifndef CCP_SI917_BRINGUP
 extern uint32_t SystemCoreClock;    /**< System Clock Frequency (Core Clock) */
+//#endif /* CCP_SI917_BRINGUP */
 extern uint32_t SystemHfrcoFreq;    /**< System HFRCO frequency */
 
 /*******************************************************************************
@@ -146,10 +147,12 @@ uint32_t SystemCoreClockGet(void);
  *   for CMSIS compliance and if a user modifies the the core clock outside
  *   the CMU API.
  ******************************************************************************/
+#ifndef CCP_SI917_BRINGUP
 static __INLINE void SystemCoreClockUpdate(void)
 {
   (void)SystemCoreClockGet();
 }
+#endif /* CCP_SI917_BRINGUP */
 
 uint32_t SystemMaxCoreClockGet(void);
 

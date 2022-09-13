@@ -92,14 +92,17 @@ static void GPIOINT_IRQDispatcher(uint32_t iflags);
  ******************************************************************************/
 void GPIOINT_Init(void)
 {
-  if (CORE_NvicIRQDisabled(GPIO_ODD_IRQn)) {
-    NVIC_ClearPendingIRQ(GPIO_ODD_IRQn);
-    NVIC_EnableIRQ(GPIO_ODD_IRQn);
+
+#ifndef CCP_SI917_BRINGUP
+  if (CORE_NvicIRQDisabled(18)) {
+    NVIC_ClearPendingIRQ(18);
+    NVIC_EnableIRQ(18);
   }
-  if (CORE_NvicIRQDisabled(GPIO_EVEN_IRQn)) {
-    NVIC_ClearPendingIRQ(GPIO_EVEN_IRQn);
-    NVIC_EnableIRQ(GPIO_EVEN_IRQn);
+  if (CORE_NvicIRQDisabled(10)) {
+    NVIC_ClearPendingIRQ(10);
+    NVIC_EnableIRQ(10);
   }
+#endif /* CCP_SI917_BRINGUP */  
 }
 
 /***************************************************************************//**

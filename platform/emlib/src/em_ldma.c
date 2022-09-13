@@ -79,7 +79,7 @@ void LDMA_IRQHandler(void)
  ******************************************************************************/
 void LDMA_DeInit(void)
 {
-  NVIC_DisableIRQ(LDMA_IRQn);
+  NVIC_DisableIRQ(9);
   LDMA->IEN  = 0;
 #if defined(_LDMA_CHDIS_MASK)
   LDMA->CHDIS = _LDMA_CHEN_MASK;
@@ -200,12 +200,12 @@ void LDMA_Init(const LDMA_Init_t *init)
 #else
   LDMA->IFC = 0xFFFFFFFFU;
 #endif
-  NVIC_ClearPendingIRQ(LDMA_IRQn);
+  NVIC_ClearPendingIRQ(9);
 
   /* Range is 0-7, where 0 is the highest priority. */
-  NVIC_SetPriority(LDMA_IRQn, init->ldmaInitIrqPriority);
+  NVIC_SetPriority(9, init->ldmaInitIrqPriority);
 
-  NVIC_EnableIRQ(LDMA_IRQn);
+  NVIC_EnableIRQ(9);
 }
 
 /***************************************************************************//**

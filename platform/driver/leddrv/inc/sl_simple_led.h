@@ -54,7 +54,9 @@ typedef uint8_t sl_led_polarity_t;    ///< LED GPIO polarities (active high/low)
 
 /// A Simple LED instance
 typedef struct {
+#ifndef CCP_SI917_BRINGUP
   GPIO_Port_TypeDef port;             ///< LED port
+#endif /* CCP_SI917_BRINGUP */  
   uint8_t           pin;              ///< LED pin
   sl_led_polarity_t polarity;         ///< Initial state of LED
 } sl_simple_led_context_t;
