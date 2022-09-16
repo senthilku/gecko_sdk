@@ -111,11 +111,13 @@ sl_status_t sl_memlcd_configure(struct sl_memlcd_t *device)
   sli_memlcd_spi_init(&spi_handle, device->spi_freq, usartClockMode0);
 #endif
 
+#ifndef CCP_SI917_BRINGUP
   /* Setup GPIOs */
   GPIO_PinModeSet(SL_MEMLCD_SPI_CS_PORT, SL_MEMLCD_SPI_CS_PIN, gpioModePushPull, 0);
 #if defined(SL_MEMLCD_EXTCOMIN_PORT)
   GPIO_PinModeSet(SL_MEMLCD_EXTCOMIN_PORT, SL_MEMLCD_EXTCOMIN_PIN, gpioModePushPull, 0);
 #endif
+#endif /* CCP_SI917_BRINGUP */
 
   memlcd_instance = *device;
   initialized = true;

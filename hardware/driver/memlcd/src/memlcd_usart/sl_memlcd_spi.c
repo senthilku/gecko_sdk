@@ -37,11 +37,13 @@ sl_status_t sli_memlcd_spi_init(sli_memlcd_spi_handle_t *handle, int baudrate, U
   uint32_t rxpen = GPIO->USARTROUTE[usart_index].ROUTEEN & _GPIO_USART_ROUTEEN_RXPEN_MASK;
 #endif
 
+#ifndef CCP_SI917_BRINGUP
   CMU_ClockEnable(cmuClock_GPIO, true);
   CMU_ClockEnable(handle->clock, true);
 
   GPIO_PinModeSet((GPIO_Port_TypeDef)handle->clk_port, handle->clk_pin, gpioModePushPull, 0);
   GPIO_PinModeSet((GPIO_Port_TypeDef)handle->mosi_port, handle->mosi_pin, gpioModePushPull, 0);
+#endif /* CCP_SI917_BRINGUP */
 
   init.baudrate = baudrate;
   init.clockMode = mode;
