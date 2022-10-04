@@ -49,11 +49,13 @@ void sl_udelay_wait(unsigned us)
   uint32_t cycles;
   uint32_t loops;
 
+#ifndef CCP_SI917_BRINGUP
   freq_khz = SystemCoreClockGet() / 1000U;
   if (freq_khz == 0) {
     EFM_ASSERT(false);
     return;
   }
+#endif /* CCP_SI917_BRINGUP */
 
   ns_period = 1000000U / freq_khz;
   if (ns_period == 0) {

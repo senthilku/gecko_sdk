@@ -50,7 +50,10 @@ typedef struct mbedtls_threading_mutex_t
 
 #if defined(MBEDTLS_THREADING_ALT)
 /* You should define the mbedtls_threading_mutex_t type in your header */
+
+//#ifndef CCP_SI917_BRINGUP
 #include "threading_alt.h"
+//#endif
 
 /**
  * \brief           Set your alternate threading implementation function

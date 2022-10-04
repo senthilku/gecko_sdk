@@ -35,10 +35,15 @@
 #include <stdbool.h>
 #include "sl_assert.h"
 
+//senthil
+#define __STATIC_INLINE static inline
+
 #if !defined(__STATIC_INLINE)
 #if !defined(__unix__) && defined(__arm__)
+#ifndef CCP_SI917_BRINGUP
 /* Compiler agnostic definitions */
 #include "cmsis_compiler.h"
+#endif
 #elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
 #define __STATIC_INLINE static inline
 #else

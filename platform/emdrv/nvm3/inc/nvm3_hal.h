@@ -39,7 +39,9 @@
 #ifdef NVM3_HOST_BUILD
 #include "nvm3_hal_host.h"
 #else
+#ifndef CCP_SI917_BRINGUP
 #include "em_device.h"
+#endif
 #include "sl_assert.h"
 #include "sl_common.h"
 #endif

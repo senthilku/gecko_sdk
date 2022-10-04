@@ -27,9 +27,10 @@
 #include "btl_interface_parser.h"
 #include "btl_interface_storage.h"
 
+#ifndef CCP_SI917_BRINGUP
 // Get flash page size
 #include "em_device.h"
-
+#endif
 /***************************************************************************//**
  * @addtogroup Interface Application Interface
  * @brief Application interface to the bootloader

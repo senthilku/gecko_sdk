@@ -1,9 +1,9 @@
 /***************************************************************************//**
  * @file
- * @brief EFR32MG12P_DMA_DESCRIPTOR register and bit field definitions
+ * @brief Emlib peripheral API "assert" implementation.
  *******************************************************************************
  * # License
- * <b>Copyright 2022 Silicon Laboratories Inc. www.silabs.com</b>
+ * <b>Copyright 2018 Silicon Laboratories Inc. www.silabs.com</b>
  *******************************************************************************
  *
  * SPDX-License-Identifier: Zlib
@@ -28,28 +28,9 @@
  *
  ******************************************************************************/
 
-#if defined(__ICCARM__)
-#pragma system_include       /* Treat file as system include file. */
-#elif defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
-#pragma clang system_header  /* Treat file as system include file. */
-#endif
+#ifndef EM_ASSERT_H
+#define EM_ASSERT_H
 
-/***************************************************************************//**
- * @addtogroup Parts
- * @{
- ******************************************************************************/
-/***************************************************************************//**
- * @defgroup EFR32MG12P_DMA_DESCRIPTOR DMA Descriptor
- * @{
- ******************************************************************************/
-/** DMA_DESCRIPTOR Register Declaration */
-typedef struct {
-  /* Note! Use of double __IOM (volatile) qualifier to ensure that both */
-  /* pointer and referenced memory are declared volatile. */
-  __IOM uint32_t     CTRL;     /**< DMA control register */
-  __IOM void * __IOM SRC;      /**< DMA source address */
-  __IOM void * __IOM DST;      /**< DMA destination address */
-  __IOM void * __IOM LINK;     /**< DMA link address */
-} DMA_DESCRIPTOR_TypeDef;      /**< @} */
+#include "sl_assert.h"
 
-/** @} End of group Parts */
+#endif /* EM_ASSERT_H */

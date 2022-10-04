@@ -19,7 +19,9 @@
 #define SL_SIMPLE_LED_H
 
 #include "sl_led.h"
+#ifndef CCP_SI917_BRINGUP
 #include "em_gpio.h"
+#endif
 #include <stdint.h>
 
 #ifdef __cplusplus

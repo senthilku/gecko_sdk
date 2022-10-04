@@ -19,7 +19,10 @@
 #define SL_SIMPLE_BUTTON_H
 
 #include "sl_button.h"
+
+#ifndef CCP_SI917_BRINGUP 
 #include "em_gpio.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {

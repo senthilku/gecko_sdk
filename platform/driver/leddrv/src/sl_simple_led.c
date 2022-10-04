@@ -17,7 +17,9 @@
 
 #include "sl_simple_led.h"
 
+#ifndef CCP_SI917_BRINGUP      
 #include "em_cmu.h"
+#endif
 
 sl_status_t sl_simple_led_init(void *context)
 {

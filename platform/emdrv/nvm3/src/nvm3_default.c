@@ -91,12 +91,75 @@ nvm3_Init_t    nvm3_defaultInitData =
 
 nvm3_Init_t   *nvm3_defaultInit = &nvm3_defaultInitData;
 
+uint32_t MapNvm3Error(Ecode_t nvm3Res)
+{
+    //CHIP_ERROR err;
+    unsigned int err = 0;
+
+    switch (nvm3Res)
+    {
+    case ECODE_NVM3_OK:
+        err = 1;//CHIP_NO_ERROR;
+        break;
+    case ECODE_NVM3_ERR_KEY_NOT_FOUND:
+        err = 2;//CHIP_DEVICE_ERROR_CONFIG_NOT_FOUND;
+        break;
+    default:
+        err = 3;//CHIP_ERROR(ChipError::Range::kPlatform, (nvm3Res & 0xFF) + CHIP_DEVICE_CONFIG_EFR32_NVM3_ERROR_MIN);
+        break;
+    }
+
+    return err;
+}
+
 Ecode_t nvm3_initDefault(void)
 {
-  return nvm3_open(nvm3_defaultHandle, nvm3_defaultInit);
+  Ecode_t err = 1;
+  err = nvm3_open(nvm3_defaultHandle, nvm3_defaultInit);
+  MapNvm3Error(err);
+  return err;
 }
 
 Ecode_t nvm3_deinitDefault(void)
 {
   return nvm3_close(nvm3_defaultHandle);
 }
+
+unsigned int key = 0x087300;
+//typedef uint32_t Ecode_t;
+
+Ecode_t nvm3_WriteConfigValue(void)
+{
+       unsigned int ret = 0;
+	unsigned int objectType;
+	size_t dataLen;
+	uint32_t tmpVal1 = 0;
+
+	uint32_t val = 0;
+	val = 0x35AABB35;
+	val = 0x12345671;
+	//val = 0x10012002;
+
+       //nvm3_repack(nvm3_defaultHandle);
+  nvm3_deleteObject(nvm3_defaultHandle, key);
+	ret = nvm3_writeData(nvm3_defaultHandle, 0x087300, &val, sizeof(val))
+;
+  //ret = nvm3_getObjectInfo(nvm3_defaultHandle, 0x087300, &objectType, &dataLen);
+  ret = nvm3_readData(nvm3_defaultHandle, 0x087300, &tmpVal1, dataLen);
+
+	printf("ret:%d\n", ret);
+	return 1;
+}
+
+Ecode_t nvm3_ReadConfigValue(void)
+{
+	unsigned int ret = 0;
+	unsigned int objectType;
+	size_t dataLen;
+	uint32_t tmpVal = 0;
+	
+	ret = nvm3_getObjectInfo(nvm3_defaultHandle, key, &objectType, &dataLen);
+	ret = nvm3_readData(nvm3_defaultHandle, key, &tmpVal, dataLen);
+	return 1;
+}
+

@@ -22,9 +22,10 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+#ifndef CCP_SI917_BRINGUP
 // Get part series version.
 #include "em_device.h"
-
+#endif
 /***************************************************************************//**
  * @addtogroup Interface
  * @{

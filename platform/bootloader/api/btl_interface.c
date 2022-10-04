@@ -17,8 +17,9 @@
 
 #include "btl_interface.h"
 #include "em_core.h"
+#ifndef CCP_SI917_BRINGUP
 #include "btl_interface_cfg.h"
-
+#endif
 #if defined(SL_COMPONENT_CATALOG_PRESENT)
 #include "sl_component_catalog.h"
 #endif

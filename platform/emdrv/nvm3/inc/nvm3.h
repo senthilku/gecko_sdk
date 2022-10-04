@@ -35,6 +35,7 @@
 #include <stdbool.h>
 #include "nvm3_hal.h"
 #include <stddef.h>
+#include "Flash_Intf.h"
 
 #ifdef __cplusplus
 extern "C" {

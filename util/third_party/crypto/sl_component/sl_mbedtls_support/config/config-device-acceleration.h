@@ -49,7 +49,7 @@
 #define MBEDTLS_CONFIG_DEVICE_ACCELERATION_H
 
 #if !defined(NO_CRYPTO_ACCELERATION)
-#include "em_device.h"
+//#include "em_device.h"
 #if defined(SEMAILBOX_PRESENT) || defined(DOXY_DOC_ONLY)
 #include "em_se.h"
 #endif
@@ -93,7 +93,7 @@
  * See \ref MBEDTLS_AES_C for more information.
  */
 #if defined(_SILICON_LABS_32B_SERIES)
-#define MBEDTLS_AES_ALT
+//#define MBEDTLS_AES_ALT
 #endif
 #if defined(CRYPTOACC_PRESENT) || defined(SEMAILBOX_PRESENT) || defined(DOXY_DOC_ONLY)
 #define AES_192_SUPPORTED
@@ -121,7 +121,7 @@
 // Remove this when full multipart support is present in the CCM ALT driver
 // Todo: remove guard when [PSEC-1954][PSEC-2109][PSEC-3133] are done
 #if !(defined(MBEDTLS_PSA_CRYPTO_DRIVERS))
-#define MBEDTLS_CCM_ALT
+//#define MBEDTLS_CCM_ALT
 #endif
 
 #endif
@@ -141,7 +141,7 @@
  */
 #if defined(CRYPTO_PRESENT) || defined(CRYPTOACC_PRESENT) || defined(DOXY_DOC_ONLY) \
   || (defined(SEMAILBOX_PRESENT) && defined(SE_COMMAND_AES_CMAC))
-#define MBEDTLS_CMAC_ALT
+//#define MBEDTLS_CMAC_ALT
 #endif
 
 /**
@@ -158,7 +158,7 @@
  */
 #if defined(CRYPTO_PRESENT) || defined(CRYPTOACC_PRESENT) || defined(DOXY_DOC_ONLY) \
   || (defined(SEMAILBOX_PRESENT) && defined(SE_COMMAND_AES_GCM_ENCRYPT) && defined(SE_COMMAND_AES_GCM_ENCRYPT) )
-#define MBEDTLS_GCM_ALT
+//#define MBEDTLS_GCM_ALT
 #endif
 
 /**
@@ -184,7 +184,7 @@
  */
 #if defined(CRYPTO_PRESENT) || defined(CRYPTOACC_PRESENT) || defined(DOXY_DOC_ONLY) \
   || (defined(SEMAILBOX_PRESENT) && defined(SE_COMMAND_OPTION_HASH_SHA1))
-#define MBEDTLS_SHA1_ALT
+//#define MBEDTLS_SHA1_ALT
 #endif
 
 /**
@@ -211,7 +211,7 @@
 #if defined(CRYPTO_PRESENT) || defined(CRYPTOACC_PRESENT) || defined(DOXY_DOC_ONLY) \
   || (defined(SEMAILBOX_PRESENT)                                                    \
   && (defined(SE_COMMAND_OPTION_HASH_SHA256) || defined(SE_COMMAND_OPTION_HASH_SHA224) ) )
-#define MBEDTLS_SHA256_ALT
+//#define MBEDTLS_SHA256_ALT
 #endif
 
 /**
@@ -229,7 +229,7 @@
  */
 #if defined(SEMAILBOX_PRESENT) \
   && (defined(SE_COMMAND_OPTION_HASH_SHA512) || defined(SE_COMMAND_OPTION_HASH_SHA384) )
-#define MBEDTLS_SHA512_ALT
+//#define MBEDTLS_SHA512_ALT
 #endif
 
 /**
@@ -254,13 +254,13 @@
   && (defined(MBEDTLS_ECP_DP_SECP192R1_ENABLED) \
   || defined(MBEDTLS_ECP_DP_SECP224R1_ENABLED)  \
   || defined(MBEDTLS_ECP_DP_SECP256R1_ENABLED))
-#define MBEDTLS_ECP_INTERNAL_ALT
+//#define MBEDTLS_ECP_INTERNAL_ALT
 #define ECP_SHORTWEIERSTRASS
-#define MBEDTLS_ECP_ADD_MIXED_ALT
-#define MBEDTLS_ECP_DOUBLE_JAC_ALT
-#define MBEDTLS_ECP_NORMALIZE_JAC_MANY_ALT
-#define MBEDTLS_ECP_NORMALIZE_JAC_ALT
-#define MBEDTLS_ECP_RANDOMIZE_JAC_ALT
+//#define MBEDTLS_ECP_ADD_MIXED_ALT
+//#define MBEDTLS_ECP_DOUBLE_JAC_ALT
+//#define MBEDTLS_ECP_NORMALIZE_JAC_MANY_ALT
+//#define MBEDTLS_ECP_NORMALIZE_JAC_ALT
+//#define MBEDTLS_ECP_RANDOMIZE_JAC_ALT
 #endif
 
 /**

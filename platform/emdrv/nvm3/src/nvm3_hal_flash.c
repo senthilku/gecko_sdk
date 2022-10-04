@@ -32,8 +32,11 @@
 #include <string.h>
 #include "nvm3.h"
 #include "nvm3_hal_flash.h"
+
+#ifndef CCP_SI917_BRINGUP
 #include "em_system.h"
 #include "em_msc.h"
+#endif
 
 /***************************************************************************//**
  * @addtogroup nvm3
@@ -63,6 +66,28 @@
  *****************************************************************************/
 
 /** @cond DO_NOT_INCLUDE_WITH_DOXYGEN */
+
+// Check if the page is erased.
+static bool isErased(void *adr, size_t len)
+{
+  size_t i;
+  size_t cnt;
+  uint32_t *dat = adr;
+
+  cnt = len / sizeof(uint32_t);
+  for (i = 0U; i < cnt; i++) {
+    if (*dat != 0xFFFFFFFFUL) {
+      return false;
+    }
+    dat++;
+  }
+
+  return true;
+}
+
+/** @endcond */
+
+#ifndef CCP_SI917_BRINGUP
 
 /***************************************************************************//**
  * @brief
@@ -97,27 +122,6 @@ static Ecode_t convertMscStatusToNvm3Status(MSC_Status_TypeDef result)
   return ret;
 }
 
-// Check if the page is erased.
-static bool isErased(void *adr, size_t len)
-{
-  size_t i;
-  size_t cnt;
-  uint32_t *dat = adr;
-
-  cnt = len / sizeof(uint32_t);
-  for (i = 0U; i < cnt; i++) {
-    if (*dat != 0xFFFFFFFFUL) {
-      return false;
-    }
-    dat++;
-  }
-
-  return true;
-}
-
-/** @endcond */
-
-#ifndef CCP_SI917_BRINGUP
 //#if 1
 static Ecode_t nvm3_halFlashOpen(nvm3_HalPtr_t nvmAdr, size_t flashSize)
 {
@@ -270,6 +274,8 @@ static void nvm3_halFlashClose(void)
 
 static Ecode_t nvm3_halFlashGetInfo(nvm3_HalInfo_t *halInfo)
 {
+
+#ifndef CCP_SI917_BRINGUP
   SYSTEM_ChipRevision_TypeDef chipRev;
 
   SYSTEM_ChipRevisionGet(&chipRev);
@@ -285,6 +291,7 @@ static Ecode_t nvm3_halFlashGetInfo(nvm3_HalInfo_t *halInfo)
   halInfo->writeSize = NVM3_HAL_WRITE_SIZE_16;
 #endif
   halInfo->pageSize = SYSTEM_GetFlashPageSize();
+#endif
 
   return ECODE_NVM3_OK;
 }
@@ -315,17 +322,13 @@ static Ecode_t nvm3_halFlashWriteWords(nvm3_HalPtr_t nvmAdr, void const *src, si
 {
   const uint32_t *pSrc = src;
   uint32_t *pDst = (uint32_t *)nvmAdr;
-  MSC_Status_TypeDef mscSta;
+  //MSC_Status_TypeDef mscSta;
   Ecode_t halSta;
   size_t byteCnt;
 
   byteCnt = wordCnt * sizeof(uint32_t);
 #if 0  
   mscSta = MSC_WriteWord(pDst, pSrc, byteCnt);
-#else
-  //ProgramPage(_FLASH_BASE_ADDR, sizeof(nvm3_data_write), (char *)nvm3_data_write);
-  ProgramPage(pDst, byteCnt, (char *)pSrc);
-#endif
   halSta = convertMscStatusToNvm3Status(mscSta);
 
 #if CHECK_DATA
@@ -334,7 +337,14 @@ static Ecode_t nvm3_halFlashWriteWords(nvm3_HalPtr_t nvmAdr, void const *src, si
       halSta = ECODE_NVM3_ERR_WRITE_FAILED;
     }
   }
+#endif  
+#else
+  //ProgramPage(_FLASH_BASE_ADDR, sizeof(nvm3_data_write), (char *)nvm3_data_write);
+  ProgramPage(pDst, byteCnt, (char *)pSrc);
 #endif
+  
+
+
 
   //return halSta;
   return ECODE_NVM3_OK;
@@ -342,15 +352,11 @@ static Ecode_t nvm3_halFlashWriteWords(nvm3_HalPtr_t nvmAdr, void const *src, si
 
 static Ecode_t nvm3_halFlashPageErase(nvm3_HalPtr_t nvmAdr)
 {
-  MSC_Status_TypeDef mscSta;
+  //MSC_Status_TypeDef mscSta;
   Ecode_t halSta;
 
 #if 0
   //mscSta = MSC_ErasePage((uint32_t *)nvmAdr);
-#else
-  mscSta = EraseSector((uint32_t *)nvmAdr);
-#endif
-
   halSta = convertMscStatusToNvm3Status(mscSta);
 
 #if CHECK_DATA
@@ -360,6 +366,11 @@ static Ecode_t nvm3_halFlashPageErase(nvm3_HalPtr_t nvmAdr)
     }
   }
 #endif
+#else
+  EraseSector((uint32_t *)nvmAdr);
+#endif
+
+
 
   //return halSta;
   return ECODE_NVM3_OK;
